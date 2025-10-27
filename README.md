@@ -31,30 +31,34 @@ Added these only for feature: test
 test = ["pytest"]
 
 After we have added the dependency-groups to the pyproject.toml, Pixi sees these as a feature, which can contain a collection of dependencies, tasks, channels, and more.
-
+```bash
 pixi workspace environment add default --solve-group default --force
 ✔ Updated environment default
 pixi workspace environment add test --feature test --solve-group default
 ✔ Added environment test
+```
 
+```toml
 [tool.pixi.environments]
 default = { solve-group = "default" }
 test = { features = ["test"], solve-group = "default" }
-
+```
 Without specifying the environment name, Pixi will default to the default environment. If you want to install or run the test environment, you can specify the environment with the --environment flag.
 
-
+```bash
 pixi install --environment test
 pixi run --environment test pytest
 
 pixi add --pypi --feature dev ruff
 pixi add --pypi --feature dev build
 pixi add --pypi --feature dev twine
+```
 
+```toml
 [dependency-groups]
 test = ["pytest>=8.4.2,<9", "ruff>=0.14.2,<0.15"]
 dev = ["ruff", "build", "twine"]
-
+```
 pixi workspace environment add dev  --feature dev  --solve-group default
 ✔ Added environment dev
 
