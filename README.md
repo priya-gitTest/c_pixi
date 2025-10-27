@@ -22,13 +22,17 @@ print(result)  # 28
 ## SETUP
 
 Let's add a dependency-group, which Pixi calls a feature, named test. And add the pytest package to this group.
-
+```bash
 pixi add --pypi --feature test pytest
 ✔ Added pytest
 Added these as pypi-dependencies.
 Added these only for feature: test
+```bash
+
+```toml
 [dependency-groups]
 test = ["pytest"]
+```bash
 
 After we have added the dependency-groups to the pyproject.toml, Pixi sees these as a feature, which can contain a collection of dependencies, tasks, channels, and more.
 ```bash
@@ -59,9 +63,11 @@ pixi add --pypi --feature dev twine
 test = ["pytest>=8.4.2,<9", "ruff>=0.14.2,<0.15"]
 dev = ["ruff", "build", "twine"]
 ```
+```bash
 pixi workspace environment add dev  --feature dev  --solve-group default
 ✔ Added environment dev
-
+```
+```toml
 [tool.pixi.environments]
 default = { solve-group = "default" }
 test = { features = ["test"], solve-group = "default" }
@@ -70,11 +76,11 @@ dev = { features = ["dev"], solve-group = "default" }
 [dependency-groups]
 test = ["pytest>=8.4.2,<9", "ruff>=0.14.2,<0.15"]
 dev = ["ruff", "build", "twine"]
-
+```
 ---
 Copy the given Pyproject.toml,
 then run in the order
-
+```bash
 # Lint
 pixi run lint
 pixi run lint-fix 
@@ -101,6 +107,6 @@ git commit -m "feat: Add division operation and update documentation"
 git push
 # Create the tag for the second release
 git tag v0.2.0
-
+```
 # Push the new tag to your remote repository
 git push origin v0.2.0
